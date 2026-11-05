@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Laboratorio escolar de movimiento parabólico con un saque de voleibol.">
+  <title>TRAYECTORIA | Laboratorio de saque y movimiento parabólico</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="brand">
+      <p class="eyebrow">Institución Educativa Técnica Comercial Francisco Javier Cisneros</p>
+      <h1>TRAYECTORIA</h1>
+      <p class="tagline">Laboratorio Virtual de Movimiento Parabólico</p>
+      <p class="intro-text">TRAYECTORIA es una experiencia interactiva que permite comprender cómo se relacionan la velocidad, el ángulo de lanzamiento y la gravedad mediante la simulación de un saque de voleibol.</p>
+    </div>
+    <div class="team-card" aria-label="Integrantes del proyecto"><b>Integrantes</b><ul><li>Zamary Castellón</li><li>Luciana Maldonado</li><li>Laura Monsalvo</li>
+      <li>Marcela Ariza</li><li>Demian Pérez</li></ul></div>
+  </header>
+  <nav id="tabs" class="tabs" role="tablist" aria-label="Secciones del laboratorio">
+    <button id="tab-learn" data-tab="learn" class="on" role="tab" aria-selected="true" aria-controls="learn"><span>1</span> Aprende lo esencial</button>
+    <button id="tab-sim" data-tab="sim" role="tab" aria-selected="false" aria-controls="sim"><span>2</span> Simula un saque</button>
+    <button id="tab-comp" data-tab="comp" role="tab" aria-selected="false" aria-controls="comp"><span>3</span> Compara los saques</button>
+    <button id="tab-retos" data-tab="retos" role="tab" aria-selected="false" aria-controls="retos"><span>4</span> Resuelve retos</button>
+  </nav>
+  <main id="contenido">
+    <section id="learn" class="tab on" role="tabpanel" aria-labelledby="tab-learn">
+      <section class="section-intro">
+        <p class="eyebrow">Paso 1</p><h2>Aprende lo esencial antes de experimentar</h2>
+        <p>En pocos minutos entenderás qué le pasa a un balón de voleibol después de un saque. Después podrás comprobarlo tú mismo.</p>
+      </section>
+      <section class="panel demo-panel">
+        <h2>🎬 Míralo en movimiento</h2>
+        <p class="help">Toca un concepto y mira cómo se marca en el saque de ejemplo (10 m/s, 50°, gravedad 9,8 m/s²).</p>
+        <div id="demoBtns" class="demo-btns">
+          <button type="button" data-d="v" class="on">Velocidad</button><button type="button" data-d="ang">Ángulo</button><button type="button" data-d="g">Gravedad</button><button type="button" data-d="h">Altura máxima</button><button type="button" data-d="r">Alcance</button>
+        </div>
+        <canvas id="cDemo" class="demo-canvas" aria-label="Animación de un balón con el concepto elegido resaltado."></canvas>
+        <p id="demoText" class="demo-text" role="status"></p>
+      </section>
+      <div class="theory-grid" id="conceptos"></div>
+      <section class="panel">
+        <h2>✏️ Comprueba lo que aprendiste</h2>
+        <p class="help">Elige qué concepto corresponde a cada frase y pulsa “Comprobar”.</p>
+        <div id="match"></div>
+        <div class="actions"><button type="button" id="bMatch" class="pri">Comprobar mis respuestas</button></div>
+        <p id="matchOut" class="status-text" role="status"></p>
+      </section>
+      <div class="intro-actions"><button type="button" class="pri" data-go="sim">Ir a simular un saque →</button></div>
+    </section>
+    <section id="sim" class="tab" role="tabpanel" aria-labelledby="tab-sim">
+      <section class="welcome-card">
+        <div>
+          <p class="eyebrow">Empieza aquí</p>
+          <h2>¿Hasta dónde y qué tan alto viaja un saque?</h2>
+          <p>Elige las condiciones, pulsa <strong>Hacer el saque</strong> y usa los resultados para explicar la trayectoria parabólica.</p>
+        </div>
+        <ol class="quick-steps" aria-label="Pasos para usar el simulador">
+          <li><b>1. Ajusta</b><span>velocidad, ángulo y gravedad.</span></li>
+          <li><b>2. Observa</b><span>el balón salir de la mano.</span></li>
+          <li><b>3. Analiza</b><span>tiempo, altura y alcance.</span></li>
+        </ol>
+      </section>
+      <div class="sim-layout">
+        <section class="panel controls-panel" aria-labelledby="controles-title">
+          <p class="eyebrow">Paso 1</p>
+          <h2 id="controles-title">Prepara el saque</h2>
+          <p class="help">Mueve un control y el modelo se actualiza. Los valores iniciales son una buena prueba para empezar.</p>
+          <div class="preset-row" aria-label="Valores sugeridos">
+            <span>Saques predeterminados:</span>
+            <button type="button" class="preset" data-preset="suave">Suave</button>
+            <button type="button" class="preset" data-preset="normal">Normal</button>
+            <button type="button" class="preset" data-preset="potente">Potente</button>
+          </div>
+          <div class="control">
+            <div class="range-head"><label for="v0">Velocidad inicial</label><output id="lv0" for="v0">25 m/s</output></div>
+            <input id="v0" type="range" min="1" max="60" step="0.5" value="25" aria-describedby="v0-help">
+            <p id="v0-help" class="control-help">Qué tan rápido sale el balón.</p>
+          </div>
+          <div class="control">
+            <div class="range-head"><label for="ang">Ángulo de salida</label><output id="lang" for="ang">45°</output></div>
+            <input id="ang" type="range" min="0" max="90" step="1" value="45" aria-describedby="ang-help">
+            <p id="ang-help" class="control-help">0° va recto; 90° sube verticalmente.</p>
+          </div>
+          <div class="control">
+            <div class="range-head"><label for="g">Gravedad</label><output id="lg" for="g">9.8 m/s²</output></div>
+            <input id="g" type="range" min="1" max="25" step="0.1" value="9.8" aria-describedby="g-help">
+            <p id="g-help" class="control-help">En la Tierra vale aproximadamente 9.8 m/s².</p>
+          </div>
+          <div class="actions">
+            <button id="bIniciar" class="pri action-main">🏐 Hacer el saque</button>
+            <div class="secondary-actions">
+              <button id="bPausa" type="button">Pausar</button>
+              <button id="bReinicio" type="button">Volver al inicio</button>
+            </div>
+          </div>
+          <p id="simStatus" class="status-text" role="status" aria-live="polite">Lista para sacar: el balón está en la mano de la jugadora.</p>
+        </section>
+        <section class="panel court-panel" aria-labelledby="escena-title">
+          <div class="panel-heading">
+            <div><p class="eyebrow">Paso 2</p><h2 id="escena-title">Mira el saque en movimiento</h2></div>
+            <span id="sceneStatus" class="status-pill">Lista</span>
+          </div>
+          <canvas id="cSim" aria-label="Cancha de voleibol con una jugadora realizando un saque y el balón siguiendo una trayectoria parabólica.">Tu navegador no puede mostrar esta simulación.</canvas>
+          <p id="verdict" class="verdict" role="status">Pulsa “Hacer el saque” para ver si el balón pasa la red.</p>
+          <p class="scene-note"><b>Modelo ideal:</b> sin aire, viento ni rotación; gravedad constante. La mano golpea a 2,3 m del piso y la red mide 2,24 m. <b>T, H y R</b> se miden hasta que el balón vuelve a la altura de la mano; luego sigue cayendo hasta el piso con las mismas ecuaciones. Un saque real puede variar por el aire, el efecto del balón y la técnica.</p>
+        </section>
+      </div>
+      <section class="panel results-panel" aria-labelledby="resultados-title">
+        <div class="panel-heading results-heading">
+          <div><p class="eyebrow">Paso 3</p><h2 id="resultados-title">Lee los resultados</h2></div>
+          <button type="button" class="text-button" data-go="comp">Comparar estos valores →</button>
+        </div>
+        <div id="res" class="kpi-grid" aria-live="polite"></div>
+        <div class="live-section">
+          <div class="live-heading"><h3>Durante el vuelo</h3><p>Tiempo actual: <strong><span id="tt">0.00</span> s</strong></p></div>
+          <div id="vivo" class="kpi-grid compact" aria-live="polite"></div>
+        </div>
+        <details class="formula-box">
+          <summary>¿De dónde salen los resultados?</summary>
+          <div class="formula-grid">
+            <p><b>Vx = V₀ · cos θ</b><span>Velocidad horizontal: se mantiene constante.</span></p>
+            <p><b>Vy = V₀ · sen θ</b><span>Velocidad vertical inicial: la gravedad la cambia.</span></p>
+            <p><b>T = 2 · V₀ · sen θ / g</b><span>Tiempo total de vuelo.</span></p>
+            <p><b>H = V₀² · sen² θ / 2g</b><span>Altura máxima sobre la mano.</span></p>
+            <p><b>R = V₀² · sen(2θ) / g</b><span>Alcance horizontal.</span></p>
+            <p><b>y(t) = V₀senθt − gt²/2</b><span>Altura en cada instante.</span></p>
+          </div>
+          <p class="model-note">Modelo ideal: no considera aire, viento ni rotación; usa gravedad constante y la misma altura de salida y llegada.</p>
+        </details>
+      </section>
+    </section>
+    <section id="comp" class="tab" role="tabpanel" aria-labelledby="tab-comp">
+      <section class="section-intro">
+        <p class="eyebrow">Paso 3</p><h2>Compara hasta tres saques</h2>
+        <p>Guarda una prueba, cambia los controles en el simulador y vuelve a guardar. Mira qué valor cambió y cómo se reflejó en la altura, el tiempo y el alcance.</p>
+        <div class="intro-actions">
+          <button type="button" class="pri" data-go="sim">← Configurar un saque</button>
+          <button id="bGuardar" type="button">＋ Guardar los valores actuales</button>
+          <button id="bBorrar" type="button" class="danger-lite">Borrar comparación</button>
+        </div>
+        <p id="compStatus" class="status-text" role="status" aria-live="polite">Todavía no hay saques guardados.</p>
+      </section>
+      <section class="panel comparison-panel">
+        <div class="chart-title"><h3>Trayectorias guardadas</h3><span>máximo 3</span></div>
+        <canvas id="cComp" class="chart" aria-label="Gráfica para comparar las trayectorias guardadas."></canvas>
+        <div class="table-wrap"><table id="tabla"></table></div>
+      </section>
+    </section>
+    <section id="retos" class="tab" role="tabpanel" aria-labelledby="tab-retos">
+      <section class="section-intro">
+        <p class="eyebrow">Paso 4</p><h2>Resuelve un reto como científica o científico</h2>
+        <p id="score" class="score-pill">Aciertos: 0</p>
+        <ol class="challenge-steps">
+          <li><b>1. Responde</b> la pregunta A, B o C.</li><li><b>2. Prueba</b> hasta cuatro valores.</li><li><b>3. Compara</b> la tabla y lee qué significan tus datos.</li>
+        </ol>
+      </section>
+      <div id="listaRetos" class="challenge-list"></div>
+    </section>
+    </main>
+  <footer><span>TRAYECTORIA · Escuela Cisneros de Puerto Colombia</span><span>Zamary Castellón · Luciana Maldonado · Marcela Ariza · Demian Pérez</span></footer>
+  <script src="js/fisica.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
